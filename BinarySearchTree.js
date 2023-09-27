@@ -10,7 +10,6 @@ class BST {
     constructor() {
         this.root = null;
     }
-
     insert(value) {
         const newNode = new Node(value);
         if (this.root === null) {
@@ -35,7 +34,6 @@ class BST {
             }
         }
     }
-
     contains(value) {
         if (this.root === null) return false;
         let temp = this.root;
@@ -50,7 +48,6 @@ class BST {
         }
         return false;
     }      
-    
     minValueNode(currentNode) {
         while (currentNode.left !== null) {
             currentNode = currentNode.left;
@@ -58,6 +55,60 @@ class BST {
         return currentNode;
     }
 
+    //Tree Traversal - Breadth First Search
+    BSF(){
+        let currentNode = this.root;
+        let queue = [];
+        let result =[];
+        queue.push(currentNode);
+        while(queue.length){
+            currentNode = queue.shift();
+            result.push(currentNode.value);
+            if(currentNode.left){
+                queue.push(currentNode.left);
+            }
+            if(currentNode.right){
+                queue.push(currentNode.right);
+            }
+        }
+        return result;
+    }
+
+    //Depth First Search
+    //Pre-Order
+    DFSPreOrder(){
+        let result = [];
+        function traverse(currentNode){
+            result.push(currentNode.value);
+            if(currentNode.left) traverse(currentNode.left);
+            if(currentNode.right) traverse(currentNode.right);
+        }
+        traverse(this.root);
+        return result;
+    }
+    //Post-Order
+    DFSPostOrder(){
+        let result = [];
+        function traverse(currentNode){
+            if(currentNode.left) traverse(currentNode.left);
+            if(currentNode.right) traverse(currentNode.right);
+            result.push(currentNode.value);
+        }
+        traverse(this.root);
+        return result;
+    }
+
+    //In-Order
+    DFSInOrder(){
+        let result = [];
+        function traverse(currentNode){
+            if(currentNode.left) traverse(currentNode.left);
+            result.push(currentNode.value);
+            if(currentNode.right) traverse(currentNode.right);
+        }
+        traverse(this.root);
+        return result;
+    }
 }
 
 
